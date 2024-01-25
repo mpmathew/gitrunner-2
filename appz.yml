@@ -1,0 +1,39 @@
+app:
+    name: Gitrunner
+    code: Gitrunner
+    notify: mpmathew@ecloudcontrol.com
+build:
+    version: 2.0
+    env: DEV
+    build_file: none
+    output_files: output/*.zip
+    image_template: gitrunner-2.0
+    
+deploy:
+    context: mpmathew/DEV
+    replicas: 1
+    type: statefulset
+    
+volumes:
+  - claim: airflow-home
+    mount: /appz/home/airflow/
+    name: data
+    size: 10Gi
+    mode: ReadWriteMany
+    matchLabels: false
+    
+properties:
+    GIT_RUNNER_REMOTE_URL: https://github.com/mpmathew/
+    GIT_RUNNER_USER_NAME: read_token
+    GIT_RUNNER_ACCESS_TOKEN:
+      vault: GIT_RUNNER_ACCESS_TOKEN
+    GIT_RUNNER_POLL_INTERVAL: 60
+    GIT_RUNNER_SMTP_ENABLED: False
+    GIT_RUNNER_SMTP_HOST: mail.authsmtp.com
+    GIT_RUNNER_SMTP_PORT: 2525
+    GIT_RUNNER_SMTP_USER: ac456487
+    GIT_RUNNER_SMTP_PASSWORD:
+      vault: GIT_RUNNER_SMTP_PASSWORD
+    GIT_RUNNER_SMTP_TIMEOUT: 10
+    GIT_RUNNER_SMTP_FROM: TCW-Airflow-2.0-Notification
+    revision : 03
