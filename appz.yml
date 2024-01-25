@@ -36,4 +36,4 @@ properties:
       vault: GIT_RUNNER_SMTP_PASSWORD
     GIT_RUNNER_SMTP_TIMEOUT: 10
     GIT_RUNNER_SMTP_FROM: TCW-Airflow-2.0-Notification
-    revision : 03
+    revision : 02
